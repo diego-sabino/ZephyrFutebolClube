@@ -41,4 +41,9 @@ export default class TeamServices {
     const matchById = await Match.update({ inProgress: false }, { where: { id } });
     return matchById;
   }
+
+  static async updateStatus(id: number | string, homeTeamGoals: IMatch, awayTeamGoals: IMatch) {
+    const matchById = await Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return matchById;
+  }
 }

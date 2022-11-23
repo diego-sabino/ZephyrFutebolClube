@@ -7,6 +7,10 @@ const MatchRouter = Router();
 
 MatchRouter
   .patch(
+    '/:id',
+    (req, res) => MatchController.updateStatus(req, res),
+  )
+  .patch(
     '/:id/finish',
     (req, res) => MatchController.updateFinishedStatus(req, res),
   )
