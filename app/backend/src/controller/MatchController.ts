@@ -5,8 +5,12 @@ export default class MatchController {
   static async getAllMatches(req: Request, res: Response) {
     const { inProgress } = req.query;
     try {
-      if (inProgress) {
+      if (inProgress === 'true') {
         const teams = await MatchServices.getMatchInProgress();
+        return res.status(200).json(teams);
+      }
+      if (inProgress === 'false') {
+        const teams = await MatchServices.getFinishedMatches();
         return res.status(200).json(teams);
       }
       const teams = await MatchServices.getAll();

@@ -11,6 +11,11 @@ export default class TeamServices {
     return matches;
   }
 
+  static async getFinishedMatches() {
+    const matches = await Match.scope('finished').findAll();
+    return matches;
+  }
+
   static async getById(id: number | string) {
     const matchById = await Match.findByPk(id);
     return matchById;

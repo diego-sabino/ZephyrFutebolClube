@@ -52,6 +52,11 @@ Match.init({
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
         { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
       ] },
+    finished: { where: { inProgress: false },
+      include: [
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+      ] },
   },
 });
 
