@@ -42,11 +42,22 @@ Match.init({
   sequelize: db,
   tableName: 'matches',
   timestamps: false,
+  scopes: {
+    all: { include: [
+      { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+      { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+    ] },
+    inProgress: { where: { inProgress: true },
+      include: [
+        { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
+        { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
+      ] },
+  },
 });
 
-Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'matches' });
 Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'teamHome' });
-Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'matchesInAway' });
+Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'matches' });
 Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'teamAway' });
+Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'matchesInAway' });
 
 export default Match;
