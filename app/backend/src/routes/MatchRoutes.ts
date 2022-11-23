@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import matchesMiddleware from '../middleware/MatchesMiddleware';
 import MatchController from '../controller/MatchController';
+import LoginMiddleware from '../middleware/LoginMiddleware';
 
 const MatchRouter = Router();
 
@@ -16,6 +17,7 @@ MatchRouter
   .post(
     '/',
     matchesMiddleware.matchesField,
+    LoginMiddleware.validateToken,
     (req, res) => MatchController.createMatch(req, res),
   );
 export default MatchRouter;
