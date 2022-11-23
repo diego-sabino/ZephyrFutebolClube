@@ -2,13 +2,20 @@ import User from '../database/models/User';
 import createToken from './AuthServices';
 
 export default class LoginServices {
-  model = User;
-  async LoginAuth(email: string) {
-    const user = await this.model.findOne({ where: { email } });
+  static async LoginAuth(userInfo: string) {
+    const user = await User.findOne({ where: { email: userInfo } });
     if (user) {
-      const { username } = user;
-      const newToken = createToken({ username });
+      const { username, email } = user;
+      const newToken = createToken({ username, email });
       return newToken;
+    }
+  }
+
+  static async LoginValidateRole(username: string) {
+    const user = await User.findOne({ where: { username } });
+    if (user) {
+      const { role } = user;
+      return role;
     }
   }
 }
