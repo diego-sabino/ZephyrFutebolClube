@@ -39,6 +39,16 @@ export default class MatchController {
     }
   }
 
+  static async updateFinishedStatus(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      await MatchServices.updateFinishedStatus(id);
+      res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  }
+
   static async createMatch(req: Request, res: Response) {
     try {
       const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;

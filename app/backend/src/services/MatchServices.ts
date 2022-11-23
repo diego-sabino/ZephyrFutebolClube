@@ -37,11 +37,8 @@ export default class TeamServices {
     return matchById;
   }
 
-  // static async LoginValidateRole(username: string) {
-  //   const user = await User.findOne({ where: { username } });
-  //   if (user) {
-  //     const { role } = user;
-  //     return role;
-  //   }
-  // }
+  static async updateFinishedStatus(id: number | string) {
+    const matchById = await Match.update({ inProgress: false }, { where: { id } });
+    return matchById;
+  }
 }
