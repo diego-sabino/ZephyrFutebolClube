@@ -13,9 +13,6 @@ chai.use(chaiHttp);
 const { app } = new App();
 
 const { expect } = chai;
-const token =  {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiQWRtaW4iLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9LCJpYXQiOjE2NjkyMTQ5NzUsImV4cCI6MTY3MTgwNjk3NX0.v-8Z_VyZ6JZ80CX6eo4aVePR9fWRbHDW3wsGLJnuQLk"
-}
 
 describe('Testes de integração de login', function () {
   it('Será validado que é possível fazer login com sucesso', async function () {
@@ -36,7 +33,7 @@ describe('Testes de integração de login', function () {
     expect(resValidate.status).to.be.equal(200);
   });
 
-  it('Será validado que é possível listar o "role" do usúario', async function () {
+  it('Será validado que não possível fazer login sem um token', async function () {
     const res = await chai
       .request(app)
       .get('/login/validate')
