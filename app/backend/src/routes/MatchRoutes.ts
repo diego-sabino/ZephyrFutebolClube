@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import matchesMiddleware from '../middleware/MatchesMiddleware';
 import MatchController from '../controller/MatchController';
 
 const MatchRouter = Router();
@@ -14,6 +15,7 @@ MatchRouter
   )
   .post(
     '/',
+    matchesMiddleware.matchesField,
     (req, res) => MatchController.createMatch(req, res),
   );
 export default MatchRouter;

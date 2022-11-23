@@ -30,7 +30,6 @@ export default class LoginMiddleware {
     try {
       const verifyToken = jwt.verify(token, process.env.JWT_SECRET as string);
       const { data } = verifyToken as jwt.JwtPayload;
-      console.log(data);
       req.user = data;
     } catch (_e) {
       return res.status(401).json({ message: 'Expired or invalid token' });
