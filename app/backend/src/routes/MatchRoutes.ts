@@ -7,6 +7,9 @@ MatchRouter
   .get(
     '/',
     (req, res) => MatchController.getAllMatches(req, res),
+  )
+  .post(
+    '/',
+    (req, res) => MatchController.createMatch(req, res),
   );
-
 export default MatchRouter;

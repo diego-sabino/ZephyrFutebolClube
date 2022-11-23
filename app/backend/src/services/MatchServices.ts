@@ -1,3 +1,4 @@
+import IMatch from '../interfaces/MatchInterface';
 import Match from '../database/models/Match';
 
 export default class TeamServices {
@@ -18,6 +19,21 @@ export default class TeamServices {
 
   static async getById(id: number | string) {
     const matchById = await Match.findByPk(id);
+    return matchById;
+  }
+
+  static async createMatch(
+    homeTeam: IMatch,
+    awayTeam: IMatch,
+    homeTeamGoals: IMatch,
+    awayTeamGoals: IMatch,
+  ) {
+    const matchById = await Match.create({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true });
     return matchById;
   }
 
