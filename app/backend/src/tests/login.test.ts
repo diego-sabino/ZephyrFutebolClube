@@ -2,9 +2,9 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
+import { admin } from './mock/userMock';
 
 import App from '../app';
-import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
 
@@ -13,35 +13,35 @@ chai.use(chaiHttp);
 const { app } = new App();
 
 const { expect } = chai;
+const token =  {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiQWRtaW4iLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSJ9LCJpYXQiOjE2NjkyMTQ5NzUsImV4cCI6MTY3MTgwNjk3NX0.v-8Z_VyZ6JZ80CX6eo4aVePR9fWRbHDW3wsGLJnuQLk"
+}
 
-describe('Seu teste', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
+describe('Testes de integração de login', function () {
+  it('Será validado que é possível fazer login com sucesso', async function () {
+    const res = await chai
+      .request(app)
+      .post('/login')
+      .send({
+        email: admin.validAdmin.email,
+        password: admin.validAdmin.password,
+      });
 
-  // let chaiHttpResponse: Response;
+    expect(res.status).to.be.equal(200);
+    const resValidate = await chai
+      .request(app)
+      .get('/login/validate')
+      .set({ "Authorization": `${res.body.token}` })
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
+    expect(resValidate.status).to.be.equal(200);
+  });
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
+  it('Será validado que é possível listar o "role" do usúario', async function () {
+    const res = await chai
+      .request(app)
+      .get('/login/validate')
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
-
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+    expect(res.status).to.be.equal(401);
   });
 });
+  

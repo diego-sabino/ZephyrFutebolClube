@@ -15,9 +15,7 @@ export default class LoginController {
 
   static async loginValidate(req: IReq, res: Response) {
     const username = req.user?.username as string;
-    console.log(username);
     const role = await LoginServices.LoginValidateRole(username);
-
     res.status(200).json({ role });
   }
 }
