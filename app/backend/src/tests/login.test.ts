@@ -14,7 +14,7 @@ const { app } = new App();
 
 const { expect } = chai;
 
-describe('Testes de integração de login', function () {
+describe('Testes de integração de Login', function () {
   it('Será validado que é possível fazer login com sucesso', async function () {
     const res = await chai
       .request(app)
@@ -23,12 +23,14 @@ describe('Testes de integração de login', function () {
         email: admin.validAdmin.email,
         password: admin.validAdmin.password,
       });
-
+    console.log(res.body.token);
+    
     expect(res.status).to.be.equal(200);
     const resValidate = await chai
       .request(app)
       .get('/login/validate')
       .set({ "Authorization": `${res.body.token}` })
+      
 
     expect(resValidate.status).to.be.equal(200);
   });

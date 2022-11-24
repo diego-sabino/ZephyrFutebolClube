@@ -57,6 +57,8 @@ Match.init({
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
         { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
       ] },
+    homeLeaderboard: { where: { inProgress: false },
+    },
   },
 });
 

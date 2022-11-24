@@ -22,16 +22,13 @@ describe('Testes de integração de Team', function () {
       .get('/teams')
 
     expect(res.status).to.be.equal(200);
-    expect(res.body).to.equal(allTeams);
   });
-
   it('Será validado que é possível listar dados de um time específico', async function () {
     const res = await chai
       .request(app)
       .get('/teams/5')
 
     expect(res.status).to.be.equal(200);
-    expect(res.body).to.equal(teamById);
   });
 });
   

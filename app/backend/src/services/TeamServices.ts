@@ -11,12 +11,4 @@ export default class TeamServices {
     const teams = await Team.findByPk(id) as ITeams;
     return teams;
   }
-
-  // static async LoginValidateRole(username: string) {
-  //   const user = await User.findOne({ where: { username } });
-  //   if (user) {
-  //     const { role } = user;
-  //     return role;
-  //   }
-  // }
 }
